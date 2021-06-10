@@ -2,3 +2,9 @@ first_name = input("what's your first name?")
 last_name = input("What's your last name?") 
 patronymic = input("What's your patronymic?")
 print(last_name.title(), first_name.title(), patronymic.title())
+
+test:
+              input:                               output:
+    Askar Sharafadinov Kalievich       Sharafadinov Askar  Kalievich
+    аскар шарафадинов Калиевич         Шарафадинов Аскар Калиевич
+    аскар sharafadinov kalievich       Sharafadinov Аскар kalievich
