@@ -1,8 +1,5 @@
-print('Glo', end='')
-print(' ', end='')
-print('Academy')
-
+print('Glo Academy')
+print()
 print('Glo Academy')
 
-glo = 'Glo Academy'
-print(glo)
+print('Glo Academy','\n', '\n', 'Glo Academy')
