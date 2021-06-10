@@ -3,3 +3,11 @@ print(' ', end='')
 print('Academy')
 
 print('Glo Academy')
+
+test:
+      input:             output:
+      'Glo'            Glo Academy
+       ' '              
+    'Academy'
+    
+  'Glo Academy'        Glo Academy
