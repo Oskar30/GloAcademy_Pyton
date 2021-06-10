@@ -1,9 +1,8 @@
 name = input("what's your name?")
 print('Hello', name)
-
-test:
-      input:          output:
-      аскар         Hello, аскар
-      Аскар         Hello, Аскар
-      askar         Hello, askar
-      Askar1        Hello, Askar1
+"""   test:
+        input:          output:
+        аскар         Hello, аскар
+        Аскар         Hello, Аскар
+        askar         Hello, askar
+        Askar1        Hello, Askar1 """
