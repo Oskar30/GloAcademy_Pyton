@@ -4,10 +4,5 @@ print('Academy')
 
 print('Glo Academy')
 
-test:
-      input:             output:
-      'Glo'            Glo Academy
-       ' '              
-    'Academy'
-    
-  'Glo Academy'        Glo Academy
+glo = 'Glo Academy'
+print(glo)
