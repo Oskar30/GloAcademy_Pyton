@@ -1,0 +1,3 @@
+import time
+sec = int (input('please enter the number of seconds: '))
+print(sec, 'second(s) - this is', time.strftime('%H', time.gmtime(sec)), 'hour(s),', time.strftime('%M', time.gmtime(sec)), 'minute(s)', time.strftime('%S', time.gmtime(sec)), 'second(s)' )
