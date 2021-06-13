@@ -1,6 +1,6 @@
 num = input('please enter a natural number not exceeding 1,000,000,000: ')
 check = len(num)
-if check == 0:
+if check == 0:  # although 0 is not a natural number, but still let it be
     num = '000' + num
 elif check == 1:
     num = '00' + num
