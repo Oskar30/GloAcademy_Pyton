@@ -1,6 +1,2 @@
 num = input('Please enter a four-digit positive integer ')
-first = int(num[0])
-second = int(num[1])
-third = int(num[2])
-fourth = int(num[3])
-print (max (first, second, third, fourth))
+print (max (int(num[0]), int(num[1]), int(num[2]), int(num[3])))
