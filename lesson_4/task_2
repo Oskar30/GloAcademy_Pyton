@@ -1,24 +1,7 @@
-# 1
 num_1 = int (input('Please enter the first integer '))
 num_2 = int (input('Please enter the second integer '))
 print(num_1, 'multiply by',num_2, 'equals', num_1 * num_2)
-
-# 2
-num_1 = int (input('Please enter the first integer '))
-num_2 = int (input('Please enter the second integer '))
 print(num_1, 'divided by',num_2, 'equals', float (num_1 / num_2))
-
-# 3
-num_1 = int (input('Please enter the first integer '))
-num_2 = int (input('Please enter the second integer '))
 print('integer division value', num_1, 'by', num_2, 'equals', num_1 // num_2)
-
-# 4
-num_1 = int (input('Please enter the first integer '))
-num_2 = int (input('Please enter the second integer '))
 print('Remainder of the division', num_1, 'by', num_2, 'equals',  num_1 % num_2)
-
-# 5
-num_1 = int (input('Please enter the first integer '))
-num_2 = int (input('Please enter the second integer '))
 print(num_1, 'in degree', num_2, 'equals', num_1 ** num_2)
