@@ -1,0 +1,12 @@
+ticket = input('ticket number: ')
+ticket0 = int(ticket)
+one = ticket0 // 100000
+two = ticket0 // 10000 % 10
+three = ticket0 // 1000 % 10
+four = ticket0 // 100 % 10
+five = ticket0 // 10 % 10
+six = ticket0 % 10
+if one + two + three == four + five + six:
+    print('ticket', ticket, 'lucky')
+else:
+    print('ticket', ticket, 'not lucky')
