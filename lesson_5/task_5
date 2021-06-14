@@ -1,0 +1,8 @@
+task = int(input('number of tasks: '))
+day = int(input('number of days: '))
+need_1 = task // day
+need_2 = task % day
+if need_2 == 0:
+    print('need days', task // day)
+else:
+    print('need days', need_1 + 1)
