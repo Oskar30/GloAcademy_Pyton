@@ -1,0 +1,6 @@
+pas = input('please enter password: ')
+pas2 = input('please enter password again: ')
+if pas == pas2:
+    print('All right!')
+else:
+    print("Passwords don't match!")
