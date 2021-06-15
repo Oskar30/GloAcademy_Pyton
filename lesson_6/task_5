@@ -1,0 +1,8 @@
+email = input('email: ')
+if '.' in email:
+    if '@' in email:
+        print('correct')
+    else:
+        print('not correct')
+else:
+    print('not correct')
