@@ -1,0 +1,15 @@
+num = int(input('pocket number: '))
+if 0 <= num <= 36:
+    if num == 0:
+        print('green')
+    else:
+        if (10 >= num >= 1 or 28 >= num >= 19) and num % 2 == 0:
+            print('black')
+        elif (10 >= num >= 1 or 28 >= num >= 19) and num % 2 != 0:
+            print('red')
+        if (18 >= num >= 11 or 36 >= num >= 29) and num % 2 == 0:
+            print('red')
+        elif (18 >= num >= 11 or 36 >= num >= 29) and num % 2 != 0:
+            print('black')
+else:
+    print('input error')
