@@ -1,0 +1,5 @@
+w = int(input('Please enter the weight of the melon(from 1 to 100): '))
+if 2 < w and w % 2 == 0:
+    print('yes')
+else:
+    print ('no')
