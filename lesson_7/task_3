@@ -1,0 +1,10 @@
+first = int(input('first_number: '))
+second = int(input('second_number: '))
+if first >= second:
+    for i in range(second, first+1):
+        print(second)
+        second += 1
+else:
+    for i in range(first, second+1):
+        print(first)
+        first += 1
