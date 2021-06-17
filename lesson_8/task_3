@@ -1,0 +1,11 @@
+a = int(input('natural number: '))
+b = a
+sum = 0
+while a != 0:
+    num = a % 10
+    sum += num
+    a //= 10
+if b % sum == 0:
+    print('YES')
+else:
+    print('NO')
