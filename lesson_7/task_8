@@ -1,6 +1,8 @@
-maxi = int(input('natural number: '))
-mini = maxi
-for i in range(9):
+repet = int(input('number of repetitions ( at least 2): '))
+num_0 = int(input('natural number: '))
+maxi = num_0
+mini = num_0
+for i in range(repet-1):
     num = int(input('natural number: '))
     if num > maxi:
         maxi = num
