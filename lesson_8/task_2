@@ -1,0 +1,8 @@
+a = int(input('natural number: '))
+five = 0
+while a != 0:
+    last = a % 10
+    if last == 5:
+        five += 1
+    a = a // 10
+print(five)
