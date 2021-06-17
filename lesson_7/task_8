@@ -1,0 +1,9 @@
+maxi = int(input('natural number: '))
+mini = maxi
+for i in range(9):
+    num = int(input('natural number: '))
+    if num > maxi:
+        maxi = num
+    elif num < mini:
+        mini = num
+print(' minimum is', mini, '\n','maximum is', maxi)
