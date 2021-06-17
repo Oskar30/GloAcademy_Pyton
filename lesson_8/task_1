@@ -1,0 +1,9 @@
+a = int(input('natural number: '))
+total = 0
+if a % 2 == 0 and a != 0:
+    while a % 2 == 0:
+        a /= 2
+        total += 1
+    print(total)
+else:
+    print(total)
