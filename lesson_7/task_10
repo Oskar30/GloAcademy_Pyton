@@ -1,5 +1,6 @@
 flag = 0
-for i in range(5):
+repet = int(input('number of repetitions: '))
+for i in range(repet):
     num = int(input('natural number: '))
     if num % 2 == 0:
         flag += 1
