@@ -1,0 +1,11 @@
+n = int(input('natural number(≥10)): '))
+maxi = 0
+mini = n
+while n != 0:
+    num = n % 10
+    if num > maxi:
+        maxi = num
+    elif num < mini:
+        mini = num
+    n //= 10
+print(' minimum is', mini, '\n','maximum is', maxi)
