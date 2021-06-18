@@ -1,0 +1,8 @@
+num = int(input('integer: '))
+total = 0
+quantity = 0
+while num != 0:
+    total += num
+    quantity +=1
+    num = int(input('integer: '))
+print(total / quantity)
