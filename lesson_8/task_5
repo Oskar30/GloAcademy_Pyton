@@ -1,0 +1,10 @@
+num = int(input('integer: '))
+negative = 0
+positive = 0
+while num != 0:
+    if num > 0:
+        positive += 1
+    else:
+        negative += 1
+    num = int(input('integer: '))
+print(negative * positive)
