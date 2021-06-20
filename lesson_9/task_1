@@ -1,0 +1,8 @@
+while True:
+    num = int(input('natural number: '))
+    if num < 10:
+        continue
+    if num > 100:
+        break
+    else:
+        print(num)
