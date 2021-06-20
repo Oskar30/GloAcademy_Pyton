@@ -1,0 +1,9 @@
+n = int(input('natural number: '))
+for i in range(1, n+1):
+    if 2 <= i <= 8:   # if 2 <= i <= 8 and 128 <= i <= 256 and 1024 <= i <= 2048: - Хотел написать так, но почему то начинают выводиться все значения от 1 до n игнорируя условия 
+        continue
+    elif 128 <= i <= 256:
+        continue
+    elif 1024 <= i <= 2048:
+        continue
+    print(i)
