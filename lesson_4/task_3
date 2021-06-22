@@ -1,3 +1,15 @@
-num = input('please enter a three-digit positive integer ')
-print('The sum of the digits of the number', num, 'is', int(num[0]) + int(num[1]) + int(num[2]))
-print('The product of the digits of the number', num, 'is', int(num[0]) * int(num[1]) * int(num[2]))
+num = int(input('please enter a three-digit positive integer '))
+num_0 = num
+
+sum = num % 10
+mult = sum
+num //= 10
+
+sum += num % 10
+mult *= num % 10
+
+sum += num // 10
+mult *= num // 10
+
+print('The sum of the digits of the number', num_0, 'is', sum)
+print('The product of the digits of the number', num_0, 'is', mult)
