@@ -1,3 +1,10 @@
-import time
-sec = int (input('please enter the number of seconds: '))
-print(sec, 'second(s) - this is', time.strftime('%H', time.gmtime(sec)), 'hour(s),', time.strftime('%M', time.gmtime(sec)), 'minute(s)', time.strftime('%S', time.gmtime(sec)), 'second(s)' )
+sec_all = int (input('please enter the number of seconds: '))
+secinp = sec_all
+sec = sec_all % 60
+sec_all -= sec
+
+min_all = sec_all / 60
+min = int(min_all % 60)
+hour = int(min_all // 60)
+
+print(secinp, 'second(s) - this is', hour, 'hour(s),', min, 'minute(s)', sec, 'second(s)')
