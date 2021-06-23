@@ -1,7 +1,8 @@
-rub = int (input('Please enter the price of the ball(rub): '))
-kop = (input('Please enter the price of the ball(kop): '))
-kop_0 = float ('0.' + kop)
-ball = int (input('Please enter the number of balls: '))
-price = (rub + kop_0) * ball
-kop_1 = str(price).split('.',2)
-print('The price for', ball, 'ball(s) is', int (price // 1), 'rub.', kop_1[1], 'kop.')
+r = int(input('Please enter the price of the ball(rub): '))
+k = int(input('Please enter the price of the ball(kop): '))
+n = int(input('Please enter the number of balls: '))
+
+kop = k * n % 100
+rub = r * n + k * n // 100
+
+print('The price for', n, 'ball(s) is', rub, 'rub.', kop, 'kop.')
