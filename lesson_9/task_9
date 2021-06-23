@@ -1,5 +1,5 @@
 n = int(input('natural number: '))
-while 10 < n:
+while 9 < n:
     sum = 0
     while n != 0:
         sum += n % 10
