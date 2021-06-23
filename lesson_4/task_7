@@ -1,9 +1,10 @@
-num = input('please enter a natural number not exceeding 1,000,000,000: ')
-check = len(num)
-if check == 0:  # although 0 is not a natural number, but still let it be
-    num = '000' + num
-elif check == 1:
-    num = '00' + num
-elif check == 2:
-    num = '0' + num
-print(int(num[-1]) + int(num[-2]) + int(num[-3]))
+num = int(input('please enter a natural number not exceeding 1,000,000,000: '))
+sum = num % 10
+
+num //= 10
+sum += num % 10
+
+num //= 10
+sum += num % 10
+
+print(sum)
