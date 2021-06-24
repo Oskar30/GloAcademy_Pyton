@@ -1,0 +1,7 @@
+a = input('enter the character: ')
+if 96 < ord(a) < 123:
+    print(a.upper())
+elif 64 < ord(a) < 91:
+    print(a.lower())
+else:
+    print(a)
