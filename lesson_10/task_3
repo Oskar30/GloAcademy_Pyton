@@ -1,0 +1,5 @@
+a = input('enter the character: ')
+if 1039 < ord(a) < 1072:
+    print('Yes')
+else:
+    print('No')
