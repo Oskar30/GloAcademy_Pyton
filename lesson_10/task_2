@@ -1,0 +1,5 @@
+a = input('enter the character: ')
+if a.isdigit():
+    print('Yes')
+else:
+    print('No')
