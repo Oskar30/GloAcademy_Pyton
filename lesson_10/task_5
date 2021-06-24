@@ -1,0 +1,10 @@
+one = input('1 letter: ')
+two = input('2 letter: ')
+buf = one
+
+if ord(one) < ord(two):
+    one = two
+    two = buf
+
+for i in range(ord(two), ord(one)+1):
+    print(chr(i))
