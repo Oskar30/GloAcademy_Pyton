@@ -1,0 +1,4 @@
+ln = input('lastname: ')
+fn = input('firstname: ')
+pm = input('patronymic: ')
+print(ln, fn[0] + '.' + pm[0] + '.')
