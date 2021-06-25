@@ -1,0 +1,4 @@
+way = input('input way: ')
+waylist = way.split("\\")
+for i in range(len(waylist)):
+    print(waylist[i])
