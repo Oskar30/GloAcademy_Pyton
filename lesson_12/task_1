@@ -1,0 +1,10 @@
+num1 = input('1 number: ')
+num2 = input('2 number: ')
+print(len(num1) * len(num2))
+
+# не понял как нужно было делать через функцию(тема урока) или просто
+
+def mult(one, two):
+    print(len(str(one)) * len(str(two)))
+
+mult(123, 456)
