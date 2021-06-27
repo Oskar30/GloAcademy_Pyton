@@ -1,0 +1,15 @@
+def star_date(date):
+    date = date.split('.')
+    for i in range(len(date)):
+        date[i] = int(date[i])
+
+    last = date[2] % 100
+    sum = date[0] + date[1]
+
+    if last == sum:
+        print('True')
+    else:
+        print('False')
+
+star_date('01.02.1903')
+star_date('01.02.1989')
