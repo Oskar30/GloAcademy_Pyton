@@ -1,0 +1,10 @@
+def delivery(quantity):
+    if quantity == 1:
+        print(100)
+    if quantity > 1:
+        print(quantity * 50 + 50)
+
+delivery(0)
+delivery(1)
+delivery(2)
+delivery(10)
