@@ -1,0 +1,13 @@
+def max_to_max():
+    a = input('1 list: ').split()
+    b = input('2 list: ').split()
+
+    for i in range(len(a)):
+        a[i] = int(a[i])
+
+    for j in range(len(b)):
+        b[j] = int(b[j])
+
+    print(max(a) * max(b))
+
+max_to_max()
