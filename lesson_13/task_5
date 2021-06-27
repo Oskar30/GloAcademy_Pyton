@@ -1,0 +1,24 @@
+import random
+
+up = int(input('range from 1 to: '))
+num = int(input('number: '))
+comp_num = random.randint(1, up)
+print(comp_num)
+
+attempt = 1
+comp_min = 1
+comp_max = up
+
+while comp_num != num:
+
+    if comp_num > num:
+        comp_max = comp_num - 1
+
+    if comp_num < num:
+        comp_min = comp_num + 1
+
+    comp_num = random.randint(comp_min, comp_max)
+    attempt += 1
+    print(comp_num)
+    
+print('win', 'number of attempts:', attempt)
