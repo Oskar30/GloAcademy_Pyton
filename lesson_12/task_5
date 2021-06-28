@@ -1,4 +1,5 @@
-def star_date(date):
+def star_date():
+    date = input('Enter date (example: 28.06.2021): ')
     date = date.split('.')
     for i in range(len(date)):
         date[i] = int(date[i])
@@ -7,9 +8,10 @@ def star_date(date):
     sum = date[0] + date[1]
 
     if last == sum:
-        print('True')
+        return True
     else:
-        print('False')
+        return False
 
-star_date('01.02.1903')
-star_date('01.02.1989')
+date_1 = star_date()
+
+print(date_1)
