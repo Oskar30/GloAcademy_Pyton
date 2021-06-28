@@ -2,7 +2,9 @@ import random
 
 up = int(input('range from 1 to: '))
 num = int(input('number: '))
-comp_num = random.randint(1, up)
+
+comp_num = up // 2
+
 print(comp_num)
 
 attempt = 1
