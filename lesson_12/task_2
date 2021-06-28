@@ -1,13 +1,12 @@
-def max_to_max():
-    a = input('1 list: ').split()
-    b = input('2 list: ').split()
+def maxi(input_list):
+    input_list = input_list.split()
+    
+    for i in range(len(input_list)):
+        input_list[i] = int(input_list[i])
 
-    for i in range(len(a)):
-        a[i] = int(a[i])
+    return max(input_list)
 
-    for j in range(len(b)):
-        b[j] = int(b[j])
+a = maxi('1 0 75 500 1 74 98 14 00')
+b = maxi('45 1 0 -7 54 100')
 
-    print(max(a) * max(b))
-
-max_to_max()
+print(a * b)
