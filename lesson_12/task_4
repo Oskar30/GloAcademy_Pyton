@@ -1,4 +1,6 @@
 def delivery(quantity):
+    if quantity == 0:
+        print(0)
     if quantity == 1:
         print(100)
     if quantity > 1:
