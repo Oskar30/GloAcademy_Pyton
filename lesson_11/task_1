@@ -1,0 +1,9 @@
+n = int(input('number: '))
+list_1 = []
+for i in range(n):
+    base = input('base: ')
+    list_1.append(base)
+search = input('search: ')
+for j in range(0, len(list_1)):
+    if search in list_1[j]:
+        print('result:', list_1[j])
