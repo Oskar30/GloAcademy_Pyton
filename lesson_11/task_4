@@ -1,0 +1,11 @@
+num = input('inter numbers: ').split()
+for k in range(len(num)):
+    num[k] = int(num[k])
+
+double = 0
+
+for i in range(len(num)):
+    for j in range(i + 1, len(num)):
+        if num[i] == num[j]:
+            double += 1
+print(double)
