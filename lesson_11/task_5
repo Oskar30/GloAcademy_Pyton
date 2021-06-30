@@ -1,0 +1,10 @@
+num = input('inter numbers: ').split()
+for k in range(len(num)):
+    num[k] = int(num[k])
+
+for i in range(len(num)):
+    for j in range(len(num)):
+        if i != j and num[i] == num[j]:
+            break
+    else:
+        print(num[i], end=' ')
