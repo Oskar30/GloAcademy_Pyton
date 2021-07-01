@@ -5,5 +5,5 @@ for i in range(n):
     list_1.append(base)
 search = input('search: ')
 for j in range(0, len(list_1)):
-    if search in list_1[j]:
+    if search.lower() in list_1[j].lower():
         print('result:', list_1[j])
