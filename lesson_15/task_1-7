@@ -1,0 +1,77 @@
+def ask_question(question):
+    q = 0                                           
+    while q == 0:                                   
+        print(question, 'Введите Да или Нет: ')
+        answer = input()
+        if answer == 'Да' or answer == 'да':
+            q += 1                                  
+            return True
+        if answer == 'Нет' or answer == 'нет':        
+            q += 1                                  
+            return False
+        else:                                       
+            print('Не верный ввод, повторите')         
+
+def update_user_word(secret_word, user_word, char):
+    new_user_word = ''
+    for i in range(len(secret_word)):
+        if secret_word[i] == char:
+            new_user_word += char
+        else:
+            new_user_word += user_word[i]
+    return new_user_word
+
+def star(secret_word):                                      # 7
+    return '*' * len(secret_word)                           #
+
+while True:                                                 # 1
+    print('Высшее учебное заведение?')                      # 6
+    secret_word = 'АКАДЕМИЯ'
+    user_word = star(secret_word)                           # 7
+    print(user_word)    
+    
+    attempt = 0                                             # 2
+
+    char_bank = ''                                          # 4
+
+    while user_word != secret_word:
+        f = 0                                               # 4
+        print('Введите букву')
+        user_char = input().upper()                         # 5        
+        if len(user_char) != 1:
+            continue
+        
+        if ord(user_char) < 1040 or ord(user_char) > 1071:  # 3
+            if ord(user_char) != 1025:                      #
+                continue      
+            
+        for el in range(len(char_bank)):                    # 4
+            if user_char == char_bank[el]:                  # 
+                print('Эту букву вы уже вводили ранее')     #
+                f += 1                                      #
+                break                                       #
+        if f > 0:                                           #
+            continue                                        #
+
+        char_bank = char_bank + user_char 
+
+        new_user_word = update_user_word(secret_word, user_word, user_char)
+
+        if user_word == new_user_word:
+            attempt += 1                                    # 2
+            print('К сожалению, такой буквы нет в слове')
+        else:
+            attempt += 1                                    # 2
+            print('Поздравляем, такая буква есть в слове')
+    
+        user_word = new_user_word
+        print(user_word)
+
+    print('Ура, вы угадали слово', 'количество попыток:', attempt)
+
+    again = ask_question('Хотите сыграть ещё раз?')         # 1
+    if again:                                               #
+        continue                                            #
+    else:                                                   #
+        print('До свидания!')                               #
+        break                                               #
