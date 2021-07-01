@@ -1,3 +1,5 @@
+import random
+
 def ask_question(question):
     q = 0                                           
     while q == 0:                                   
@@ -24,9 +26,14 @@ def update_user_word(secret_word, user_word, char):
 def star(secret_word):                                      # 7
     return '*' * len(secret_word)                           #
 
+quest_bank = ["Ездовое животное?","Воинское звание высшего офицерского состава ВМФ?","Столица России?",'Высшее учебное заведение?']
+secret_bank = ["ЛОШАДЬ","АДМИРАЛ","МОСКВА","АКАДЕМИЯ"]
+
 while True:                                                 # 1
-    print('Высшее учебное заведение?')                      # 6
-    secret_word = 'АКАДЕМИЯ'
+    ran = random.randint(0, 3)
+    quest = quest_bank[ran]                                 # 6
+    print(quest)
+    secret_word = secret_bank[ran]
     user_word = star(secret_word)                           # 7
     print(user_word)    
     
