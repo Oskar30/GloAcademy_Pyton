@@ -68,6 +68,7 @@ while True:                                                 # 1
 
     while not end_game(field):
         print_field(field)
+        print('ход:',current_symbol)
         print('Введите номер строки и номер столбца: ')
 
         row = input()
@@ -86,8 +87,10 @@ while True:                                                 # 1
 
         if current_symbol == 'X':
             current_symbol = 'O'
+            print('ход:',current_symbol)
         else:
             current_symbol = 'X'
+            print('ход:',current_symbol)
 
     print_field(field)
 
