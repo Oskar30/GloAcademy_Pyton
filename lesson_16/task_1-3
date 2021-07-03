@@ -1,0 +1,108 @@
+def create_field():
+    field = []
+    for i in range(3):
+        field.append(['*'] * 3)
+    return field
+
+def print_field(field):
+    for i in range(3):
+        for j in range(3):
+            print(field[i][j], end='')
+        print()
+
+def win(field):
+    for i in range(3):
+        if field[i][0] != '*' and field[i][0] == field[i][1] == field[i][2]:
+            return True
+
+    for i in range (3):
+        if field[0][i] != '*' and field[0][i] == field[1][i] == field[2][i]:
+            return True
+
+    if field[0][0] != '*' and field[0][0] == field[1][1] == field[2][2]:
+        return True
+
+    if field[0][2] != '*' and field[0][2] == field[1][1] == field[2][0]:
+        return True
+
+    return False
+
+def end_game(field):
+    if win(field):
+        return True
+
+    for i in range(3):
+        for j in range(3):
+            if field[i][j] == '*':
+                return False
+    return True
+
+def ask_question(question):
+    q = 0                                           
+    while q == 0:                                   
+        print(question, 'Введите Да или Нет: ')
+        answer = input()
+        if answer == 'Да' or answer == 'да':
+            q += 1                                  
+            return True
+        if answer == 'Нет' or answer == 'нет':        
+            q += 1                                  
+            return False
+        else:                                       
+            print('Не верный ввод, повторите')         
+
+def is_valid_num(user_input):
+    if user_input.isdigit():
+        user_number = int(user_input)
+        if 1 <= user_number <= 3:
+            return True
+        else:
+            return False
+    else:
+        return False
+
+while True:                                                 # 1
+
+    field = create_field()
+    current_symbol = 'X'
+
+    while not end_game(field):
+        print_field(field)
+        print('Введите номер строки и номер столбца: ')
+
+        row = input()
+        if not is_valid_num(row):                           # 2
+            continue
+        
+        column = input()
+        if not is_valid_num(column):                        # 
+            continue
+
+        if field[int(row) - 1][int(column) - 1] != '*':
+            print('данная ячейка уже занята')
+            continue
+        else:
+            field[int(row) - 1][int(column) - 1] = current_symbol
+
+        if current_symbol == 'X':
+            current_symbol = 'O'
+        else:
+            current_symbol = 'X'
+
+    print_field(field)
+
+    if not win(field):
+        print('Ничья')
+    else:
+        if current_symbol == 'X':
+            print('Ура! Победил O')
+        else:
+            print('Ура! Победил X')
+
+
+    again = ask_question('Хотите сыграть ещё раз?')         # 1
+    if again:                                               #
+        continue                                            #
+    else:                                                   #
+        print('До свидания!')                               #
+        break                                               #
