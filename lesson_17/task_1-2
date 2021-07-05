@@ -34,12 +34,11 @@ def ask_question(question):
             q += 1                                  
             return False
         else:                                       
-            print('Не верный ввод, повторите')         
+            print('Неверный ввод, повторите')         
 
 while True:
 
     sec_word = gen_sec_word()    
-    print(sec_word)
 
     while True:
         print('Найди 4-х значное число, задуманное компьютером!')
@@ -50,7 +49,7 @@ while True:
             continue
 
         if len(user_word) != 4:                             # 2.2
-            print('не верный ввод')
+            print('неверный ввод')
             continue
 
         f = 0
