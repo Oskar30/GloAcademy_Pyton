@@ -1,0 +1,57 @@
+import random
+
+def ask_question(question):                                                 # 5
+    q = 0                                           
+    while q == 0:                                   
+        print(question, 'Введите Да или Нет: ')
+        answer = input()
+        if answer == 'Да' or answer == 'да':
+            q += 1                                  
+            return True
+        if answer == 'Нет' or answer == 'нет':        
+            q += 1                                  
+            return False
+        else:                                       
+            print('Неверный ввод, повторите')    
+
+def result(right):                                                          # 5
+    result = ["идиот", "кретин", "дурак", "нормальный", "талант", "гений"]  # 3
+    for i in range(6):
+        if right == i:                        
+            return result[i]
+
+name = input("Здравствуйте, как вас зовут?").title() + ','  # 4                     
+                  
+while True:
+
+    questions = ['Сколько будет 2 + 2 * 2 ?', 'Бревно нужно распилить на 10 частей, сколько нужно сделать распилов?',
+    'На 2 руках 10 пальцев. Сколько пальцев на 5 руках?', 'Укол делают каждые полчаса, сколько нужно минут для 3 уколов?',
+    'Пять свечей горело, две потухли. Сколько свечей осталось?']
+
+    answers = [6, 9, 25, 60, 2]
+
+    right = 0
+
+    for i in range(5):                                     # 6
+        ran = random.randint(0, len(questions)-1)
+        print(len(questions), ran)
+        quest = questions[ran]                                    
+        correct_ans = answers[ran]
+        
+        print('вопрос №', i+1,': ', quest, sep='')         # 2
+        us_answer = int(input())
+
+        if us_answer == correct_ans:
+            right += 1
+        
+        questions.pop(ran)
+        answers.pop(ran)      
+       
+    print(name, 'по результату теста вы: ', result(right))
+
+    again = ask_question('Хотите сыграть ещё раз?')         # 1
+    if again:                                               #
+        continue                                            #
+    else:                                                   #
+        print('До свидания!')                               #
+        break                                               #
