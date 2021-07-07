@@ -19,7 +19,7 @@ def result(right):
     for i in range(len(result)):
         if right == i:
             return result[i]
-        else:
+        if right > 5:
             return result[5]                                        # 2
 
 name = input("Здравствуйте, как вас зовут?").title() + ','
@@ -55,12 +55,12 @@ while True:
         answers.pop(ran)
     
     file = open('My-Tester.txt', 'a')                               # 3
-    file.write(f'{"Имя":10}{"Кол-во пр. отв.":20}{"Результат":10}')
-    file.write(f'{name:10}{right:20}{result(right):10}')
+    file.write(f'{"Имя":10}{"Кол-во пр. отв.":16}{"Результат":10}')
+    file.write(f'{name:10}{right:16}{result(right):10}')
     file.close
 
-    print (f'{"Имя":10}{"Кол-во пр. отв.":20}{"Результат":10}')     # 4
-    print (f'{name:10}{right:20}{result(right):10}')    
+    print (f'{"Имя":10}{"Кол-во пр. отв.":16}{"Результат":10}')     # 4
+    print (f'{name:10}{right:16}{result(right):10}')    
 
     again = ask_question('Хотите сыграть ещё раз?')
     if again:
