@@ -1,0 +1,70 @@
+import random
+
+def ask_question(question):
+    q = 0
+    while q == 0:
+        print(question, 'Введите Да или Нет: ')
+        answer = input()
+        if answer == 'Да' or answer == 'да':
+            q += 1
+            return True
+        if answer == 'Нет' or answer == 'нет':
+            q += 1
+            return False
+        else:
+            print('Неверный ввод, повторите')
+
+def result(right):
+    result = ["идиот", "кретин", "дурак", "нормальный", "талант", "гений"]
+    for i in range(len(result)):
+        if right == i:
+            return result[i]
+        else:
+            return result[5]                                        # 2
+
+name = input("Здравствуйте, как вас зовут?").title() + ','
+
+while True:
+
+    questions = ['Сколько будет 2 + 2 * 2 ?', 'Бревно нужно распилить на 10 частей, сколько нужно сделать распилов?',
+    'На 2 руках 10 пальцев. Сколько пальцев на 5 руках?', 'Укол делают каждые полчаса, сколько нужно минут для 3 уколов?',
+    'Пять свечей горело, две потухли. Сколько свечей осталось?']
+
+    answers = [6, 9, 25, 60, 2]
+
+    right = 0
+
+    for i in range(len(questions)):
+        ran = random.randint(0, len(questions)-1)
+        quest = questions[ran]
+        correct_ans = answers[ran]
+        
+        print('вопрос №', i+1,': ', quest, sep='')
+        us_answer = input()
+
+        while not us_answer.isdigit():                             # 1
+            print("Пожалуйста, введите число!")
+            us_answer = input()
+
+        us_answer = int(us_answer)
+
+        if us_answer == correct_ans:
+            right += 1
+
+        questions.pop(ran)
+        answers.pop(ran)
+    
+    file = open('My-Tester.txt', 'a')                               # 3
+    file.write(f'{"Имя":10}{"Кол-во пр. отв.":20}{"Результат":10}')
+    file.write(f'{name:10}{right:20}{result(right):10}')
+    file.close
+
+    print (f'{"Имя":10}{"Кол-во пр. отв.":20}{"Результат":10}')     # 4
+    print (f'{name:10}{right:20}{result(right):10}')    
+
+    again = ask_question('Хотите сыграть ещё раз?')
+    if again:
+        continue
+    else:
+        print('До свидания!')
+        break
