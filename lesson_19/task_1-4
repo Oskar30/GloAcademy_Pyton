@@ -14,15 +14,33 @@ def ask_question(question):
         else:
             print('Неверный ввод, повторите')
 
-def result(right):
+def result(right, questions):                                               # 2
     result = ["идиот", "кретин", "дурак", "нормальный", "талант", "гений"]
-    for i in range(len(result)):
-        if right == i:
-            return result[i]
-        if right > 5:
-            return result[5]                                        # 2
+    rank = right * 100 // questions
+    return result[rank // 20]
 
-name = input("Здравствуйте, как вас зовут?").title() + ','
+def users_result(name, right, rank):    
+    file = 'results.txt'
+    file = open('results.txt', 'a')
+    file.write(f'{name}*{right}*{rank}\n')
+    file.close()
+
+def table_results():
+    file = 'results.txt'
+    file = open('results.txt', 'r')
+
+    name = 'Имя'
+    right = 'Кол-во пр. отв'
+    rank = 'Результат'
+
+    print(f'{name:15}{right:20}{rank:15}')
+
+    for L in file:
+        L = L.strip('\n')
+        val = L.split('*')
+        print(f'{val[0]:15}{val[1]:20}{val[2]:15}')
+
+name = input("Здравствуйте, как вас зовут?").title()
 
 while True:
 
@@ -30,9 +48,11 @@ while True:
     'На 2 руках 10 пальцев. Сколько пальцев на 5 руках?', 'Укол делают каждые полчаса, сколько нужно минут для 3 уколов?',
     'Пять свечей горело, две потухли. Сколько свечей осталось?']
 
+    total_questions = len(questions)
+
     answers = [6, 9, 25, 60, 2]
 
-    right = 0
+    right = 0  
 
     for i in range(len(questions)):
         ran = random.randint(0, len(questions)-1)
@@ -42,7 +62,7 @@ while True:
         print('вопрос №', i+1,': ', quest, sep='')
         us_answer = input()
 
-        while not us_answer.isdigit():                             # 1
+        while not us_answer.isdigit():                                       # 1
             print("Пожалуйста, введите число!")
             us_answer = input()
 
@@ -54,13 +74,16 @@ while True:
         questions.pop(ran)
         answers.pop(ran)
     
-    file = open('My-Tester.txt', 'a')                               # 3
-    file.write(f'{"Имя":10}{"Кол-во пр. отв.":16}{"Результат":10}')
-    file.write(f'{name:10}{right:16}{result(right):10}')
-    file.close
+    rank = result(right, total_questions)                                    # 3
+    
+    print (f'{"Имя":15}{"Кол-во пр. отв.":20}{"Результат":15}')              
+    print (f'{name:15}{str(right):20}{rank:15}')    
 
-    print (f'{"Имя":10}{"Кол-во пр. отв.":16}{"Результат":10}')     # 4
-    print (f'{name:10}{right:16}{result(right):10}')    
+    users_result(name, right, rank)
+
+    table = ask_question('Посмотреть все результаты тестирования?')          # 4
+    if table:
+        table_results()
 
     again = ask_question('Хотите сыграть ещё раз?')
     if again:
