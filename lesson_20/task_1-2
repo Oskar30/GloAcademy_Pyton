@@ -1,0 +1,141 @@
+import random
+
+class Question:
+    def __init__(self, text, answer):
+        self.text = text
+        self.answer = answer
+
+class QuestionsStorage:
+    def get_all(self):
+        questions = [Question('Сколько будет 2 + 2 * 2 ?', 6),
+        Question('Бревно нужно распилить на 10 частей, сколько нужно сделать распилов?', 9),
+        Question('На 2 руках 10 пальцев. Сколько пальцев на 5 руках?', 25),
+        Question('Укол делают каждые полчаса, сколько нужно минут для 3 уколов?', 60),
+        Question('Пять свечей горело, две потухли. Сколько свечей осталось?', 2)]
+        return questions 
+
+class User:    
+    def __init__(self, name, right_answer=0, rank='No'):
+        self.name = name
+        self.right_answer = right_answer
+        self.rank = rank
+
+    def accept_right_answer(self):
+        self.right_answer +=1
+
+    def set_rank(self, rank):
+        self.rank = rank
+
+class UsersResultStorage:
+    def safe(self, user):
+        file = 'results.txt'
+        data = f'{user.name}*{user.right_answer}*{user.rank}\n'
+
+        file_provider = FileProvider()
+        file_provider.append(file, data)
+
+    def get_all(self):
+        file = 'results.txt'
+        file_provider = FileProvider()
+        data = file_provider.get(file).strip('\n')
+        data = data.split('\n')
+        users =[]
+
+        for L in data:
+            val = L.split('*')
+            user = User(val[0], val[1], val[2])
+            users.append(user)
+        
+        return users
+       
+class FileProvider:
+    def get(self, path):
+        file = open(path, 'r')
+        data = file.read()
+        file.close()
+        return data
+
+    def append(self, path, data):
+        file = open(path, 'a')
+        data = file.write(data)
+        file.close
+
+def ask_question(question):
+    q = 0
+    while q == 0:
+        print(question, 'Введите Да или Нет: ')
+        answer = input()
+        if answer == 'Да' or answer == 'да':
+            q += 1
+            return True
+        if answer == 'Нет' or answer == 'нет':
+            q += 1
+            return False
+        else:
+            print('Неверный ввод, повторите')
+
+def result(right_answer, questions):
+    result = ["идиот", "кретин", "дурак", "нормальный", "талант", "гений"]
+    rank = right_answer * 100 // questions
+    return result[rank // 20]
+
+def table_results():    
+    name = 'Имя'
+    right = 'Кол-во пр. отв'
+    rank = 'Результат'
+    print(f'{name:15}{right:20}{rank:15}')
+
+    users = usersResultStorage.get_all()
+
+    for user in users:
+        print(f'{user.name:15}{user.right_answer:20}{user.rank:15}')
+
+questionsStorage = QuestionsStorage()
+usersResultStorage = UsersResultStorage()
+
+while True:
+    questions = questionsStorage.get_all()
+    
+    total_questions = len(questions)
+
+    name = input("Здравствуйте, как вас зовут?").title()
+    user = User(name)
+
+    for i in range(len(questions)):
+        ran = random.randint(0, len(questions)-1)
+        quest = questions[ran].text
+        correct_ans = questions[ran].answer
+        
+        print('вопрос №', i+1,': ', quest, sep='')
+        us_answer = input()
+
+        while not us_answer.isdigit():                                        
+            print("Пожалуйста, введите число!")
+            us_answer = input()
+
+        us_answer = int(us_answer)
+
+        if us_answer == correct_ans:
+            user.accept_right_answer()
+
+        questions.pop(ran)
+    
+    rank = result(user.right_answer, total_questions)                                     
+
+    user.set_rank(rank)
+
+    print (f'{"Имя":15}{"Кол-во пр. отв.":20}{"Результат":15}')              
+    print (f'{name:15}{str(user.right_answer):20}{rank:15}')    
+
+    usersResultStorage.safe(user)
+
+    table = ask_question('Посмотреть все результаты тестирования?')           
+    if table:
+        table_results()
+
+    again = ask_question('Хотите сыграть ещё раз?')
+    if again:
+        continue
+    else:
+        print('До свидания!')
+        break
