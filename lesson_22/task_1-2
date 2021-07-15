@@ -1,265 +1,240 @@
 import random
 import os
 import jsonpickle
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
+
+jsonpickle.set_encoder_options('json', indent=4, separators=(',', ': '), ensure_ascii=False)
+
+class Question:
+    def __init__(self, text, answer):
+        self.text = text
+        self.answer = answer
+
+class QuestionsStorage:
+    def get_all(self):
+        main_questions = [Question('Сколько будет 2 + 2 * 2 ?', 6),
+        Question('Бревно нужно распилить на 10 частей, сколько нужно сделать распилов?', 9),
+        Question('На 2 руках 10 пальцев. Сколько пальцев на 5 руках?', 25),
+        Question('Укол делают каждые полчаса, сколько нужно минут для 3 уколов?', 60),
+        Question('Пять свечей горело, две потухли. Сколько свечей осталось?', 2)]
+
+        file_provider = FileProvider()
+        file = 'questions.json' 
+
+        if file_provider.exists(file):                   
+            data = file_provider.get(file)
+            questions = jsonpickle.decode(data)
+            
+            return questions
+        else:
+            return main_questions
+
+    def add_question(self):
+        file = 'questions.json'
+        while True:
+            new_question = input('Введите текст нового вопроса: ')
+            new_answer = input('Введите ответ на новый вопрос: ')
+
+            while not new_answer.isdigit():
+                print("Пожалуйста, введите число!")
+                new_answer = input()
+            new_answer = int(new_answer)
+
+            questions = self.get_all()
+            questions.append(Question(new_question, new_answer))
+            
+            json_data = jsonpickle.encode(questions)
+            
+            file_provider = FileProvider()
+            file_provider.overwriting(file, json_data)
+
+            yet_question = ask_question('Добавить ещё один вопрос?')
+            if yet_question:
+                continue
+            else:
+                break
+
+    def del_question(self):
+        while True:
+
+            file_provider = FileProvider()
+            file = 'questions.json' 
+
+            questions = self.get_all()
+            
+
+            if len(questions) > 0:
+                replay = len(questions) - 1
+                for i in range(replay):
+                    number = i + 1
+                    print('Вопрос', number, questions[i].text)
+
+                number_del = input('Укажите номер вопроса для удаления: ')
+                
+                while not number_del.isdigit():
+                    print("Пожалуйста, введите число!")
+                    number_del = input()
+                number_del = int(number_del)-1
+
+                questions.pop(number_del)
+                json_data = jsonpickle.encode(questions)
+                file_provider.overwriting(file, json_data)                
+                        
+            
+                del_more = ask_question('Удалить ещё один вопрос?')
+                if del_more:
+                    continue
+                else:
+                    break
+            else:
+                print('Нет доступных вопросов для удаления')
+                break
+
+
+class User:
+    def __init__(self, name, right_answer=0, rank='No'):
+        self.name = name
+        self.right_answer = right_answer
+        self.rank = rank
+
+    def accept_right_answer(self):
+        self.right_answer +=1
+
+    def set_rank(self, rank):
+        self.rank = rank
+
+class UsersResultStorage:
+    
+    def safe(self, user):
+        users = self.get_all()
+        users.append(user)
+        
+        file_provider = FileProvider()
+        file = 'results.json'
+        
+        data =  jsonpickle.encode(users)
+        file_provider.overwriting(file, data)
+
+
+    def get_all(self):
+        file = 'results.json'
+        file_provider = FileProvider()
+        
+        if not file_provider.exists(file):
+            users = []
+        else:
+            data = file_provider.get(file)
+            users = jsonpickle.decode(data)
+        
+        return users
+        
+
+class FileProvider:
+    def get(self, path):
+        file = open(path, 'r')
+        data = file.read()
+        file.close()
+        return data
+
+    def append(self, path, data):
+        file = open(path, 'a')
+        data = file.write(data)
+        file.close
+
+    def overwriting(self, path, data):
+        file = open(path, 'w')
+        data = file.write(data)
+        file.close
+
+    def exists(self, path):
+        return os.path.exists(path)
+
+def ask_question(question):
+    q = 0
+    while q == 0:
+        print(question, 'Введите Да или Нет: ')
+        answer = input()
+        if answer == 'Да' or answer == 'да':
+            q += 1
+            return True
+        if answer == 'Нет' or answer == 'нет':
+            q += 1
+            return False
+        else:
+            print('Неверный ввод, повторите')
+
+def result(right_answer, questions):
+    result = ["идиот", "кретин", "дурак", "нормальный", "талант", "гений"]
+    rank = right_answer * 100 // questions
+    return result[rank // 20]
+
+def table_results():    
+    name = 'Имя'
+    right = 'Кол-во пр. отв'
+    rank = 'Результат'
+    print(f'{name:15}{right:20}{rank:15}')
+
+    users = usersResultStorage.get_all()
+
+    for user in users:
+        print(f'{user.name:15}{str(user.right_answer):20}{user.rank:15}')
+
+questionsStorage = QuestionsStorage()
+usersResultStorage = UsersResultStorage()
+
+while True:
+
+    name = input("Здравствуйте, как вас зовут?").title()
+    if name == 'Admin':
+        add_new_question = ask_question('Добавить новый вопрос?')
+        if add_new_question:
+            new_quest = questionsStorage.add_question()
+        
+        del_question = ask_question('Удалить существующий вопрос?')
+        if del_question:
+            del_quest = questionsStorage.del_question()
+        continue
+
+    else:
+        user = User(name)
+
+    questions = questionsStorage.get_all()        
+    total_questions = len(questions)
+
+    for i in range(len(questions)):
+        ran = random.randint(0, len(questions)-1)
+        quest = questions[ran].text
+        correct_ans = questions[ran].answer
+        
+        print('вопрос №', i+1,': ', quest, sep='')
+        us_answer = input()
+
+        while not us_answer.isdigit():                                        
+            print("Пожалуйста, введите число!")
+            us_answer = input()
+
+        us_answer = int(us_answer)
+
+        if us_answer == correct_ans:
+            user.accept_right_answer()
+
+        questions.pop(ran)
+    
+    rank = result(user.right_answer, total_questions)                                     
+
+    user.set_rank(rank)
+
+    print (f'{"Имя":15}{"Кол-во пр. отв.":20}{"Результат":15}')              
+    print (f'{name:15}{str(user.right_answer):20}{rank:15}')    
+
+    usersResultStorage.safe(user)
+
+    table = ask_question('Посмотреть все результаты тестирования?')           
+    if table:
+        table_results()
+
+    again = ask_question('Запустить тест ещё раз?')
+    if again:
+        continue
+    else:
+        print('До свидания!')
+        break
