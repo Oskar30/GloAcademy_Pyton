@@ -93,7 +93,7 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             for ball in balls:
                 ball.stop()
-                if 30 <= ball.center_x <= 670 and 30 <= ball.center_y <= 370:   # 1
+                if 30 < ball.center_x < 670 and 30 < ball.center_y < 370:   # 1
                     score += 1
 
             ScoreBalls(str(score))
