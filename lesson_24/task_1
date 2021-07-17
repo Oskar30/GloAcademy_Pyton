@@ -89,14 +89,14 @@ class Score(BillyarBall):
 
         global left_score, right_score, up_score, down_score
         
-        if ball.center_x == 30:
+        if self.center_x <= self.radius:
             left_score += 1
-        if ball.center_x == 670:
+        if self.center_x >= width -self.radius:
             right_score += 1
         
-        if ball.center_y == 30:
+        if self.center_y <= self.radius:
             up_score += 1
-        if ball.center_y == 370:
+        if self.center_y >= height -self.radius:
             down_score += 1
 
         font = pygame.font.Font(None, 56)
