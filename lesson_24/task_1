@@ -1,7 +1,4 @@
-import pygame
-import random
-import time
-
+import pygame, random, time
 pygame.init()
 
 class Ball:
@@ -57,7 +54,7 @@ class RandomPointMovableBall(RandomPointBall):
     def __init__(self, display):
         super().__init__(display)
         
-        number_list = [-3, -2, -1, 1, 2, 3]     # 2
+        number_list = [-3, -2, -1, 1, 2, 3]
 
         self.vx = random.choice(number_list)
         self.vy = random.choice(number_list)
@@ -105,16 +102,15 @@ class Score(BillyarBall):
         font = pygame.font.Font(None, 56)
         text_down = font.render(str(down_score), 2, pygame.Color('black'))
         display.blit(text_down, (330, 360))
-        
 
-        if self.center_x <= self.radius:
+        if ball.center_x == 30:
             left_score += 1
-        if self.center_x >= width -self.radius:
+        if ball.center_x >= 670:
             right_score += 1
         
-        if self.center_y <= self.radius:
+        if ball.center_y == 30:
             up_score += 1
-        if self.center_y >= height -self.radius:
+        if ball.center_y == 370:
             down_score += 1
 
 width = 700
