@@ -91,7 +91,7 @@ class Score(BillyarBall):
         
         if ball.center_x == 30:
             left_score += 1
-        if ball.center_x >= 670:
+        if ball.center_x == 670:
             right_score += 1
         
         if ball.center_y == 30:
