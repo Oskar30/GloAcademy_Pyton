@@ -1,4 +1,4 @@
-import pygame, random, time
+import pygame, random
 pygame.init()
 
 class Ball:
@@ -8,148 +8,108 @@ class Ball:
         self.center_x = 100
         self.center_y = 100
         self.radius = 30
-
+        
         self.vx = 2
         self.vy = 2
 
-    def show(self):        
-        pygame.draw.circle(self.display, self.color, (self.center_x, self.center_y), self.radius)
+    def clear(self):
+        pygame.draw.circle(self.display, pygame.Color('white'), (self.center_x, self.center_y), self.radius)
 
     def go(self):
         self.center_x += self.vx
         self.center_y += self.vy
 
-    def clear(self):
-        pygame.draw.circle(self.display, pygame.Color('white'), (self.center_x, self.center_y), self.radius)
-
+    def show(self):
+        pygame.draw.circle(self.display, self.color, (self.center_x, self.center_y), self.radius)
+    
     def move(self):
         self.clear()
         self.go()
         self.show()
 
-    def stop(self):
-        self.vx = 0
-        self.vy = 0
-
 class RandomPointBall(Ball):
     def __init__(self, display):
         super().__init__(display)
 
-        self.color = pygame.Color('blue')
-
+        self.color = pygame.Color('green')
         width, height = display.get_size()        
         self.center_x = random.randint(self.radius, width - self.radius)
-        self.center_y = random.randint(self.radius, height - self.radius)        
-
-class PointBall(Ball):
-    def __init__(self, display, x, y):
-        super().__init__(display)
-
-        self.color = pygame.Color('yellow')
-        
-        self.center_x = x
-        self.center_y = y
+        self.center_y = random.randint(self.radius, height - self.radius)
 
 class RandomPointMovableBall(RandomPointBall):
     def __init__(self, display):
         super().__init__(display)
-        
-        number_list = [-3, -2, -1, 1, 2, 3]
 
+        number_list = [-3, -2, -1, 1, 2, 3]
         self.vx = random.choice(number_list)
         self.vy = random.choice(number_list)
 
-class BillyarBall(RandomPointMovableBall):
+class BillyardBall(RandomPointMovableBall):
     def __init__(self, display):
-        super().__init__(display)
-        self.color = pygame.Color('green')
+        super().__init__(display)        
 
     def go(self):
+        global left_score, right_score, up_score, down_score
         super().go()
 
         width, height = display.get_size()
+        if self.center_x <= self.radius:
+            self.vx = - self.vx
+            left_score += 1
 
-        if self.center_x <= self.radius or self.center_x >= width -self.radius:
-            self.vx = -self.vx
+        if self.center_x >= width - self.radius:
+            self.vx = - self.vx
+            right_score += 1
 
-        if self.center_y <= self.radius or self.center_y >= height -self.radius:
-            self.vy = -self.vy
+        if self.center_y <= self.radius:
+            self.vy = - self.vy 
+            up_score += 1
+
+        if self.center_y >= height - self.radius:
+            self.vy = - self.vy 
+            down_score += 1
+
+    def score(self, left_score, right_score, up_score, down_score):
+        font = pygame.font.Font(None, 56)
+        text_left = font.render(str(left_score), True, pygame.Color('black'), pygame.Color('white'))
+        display.blit(text_left, (0, 180))
+        text_right = font.render(str(right_score), True, pygame.Color('black'), pygame.Color('white'))
+        display.blit(text_right, (660, 180))
+        text_up = font.render(str(up_score), True, pygame.Color('black'), pygame.Color('white'))
+        display.blit(text_up, (330, 0))
+        text_down = font.render(str(down_score), True, pygame.Color('black'), pygame.Color('white'))
+        display.blit(text_down, (330, 360))        
+
+width = 700
+height = 400
+display = pygame.display.set_mode((width, height))
+
+display.fill(pygame.Color('white'))
 
 left_score = 0
 right_score = 0
 up_score = 0
 down_score = 0
 
-class Score(BillyarBall):
-    def __init__(self, display):
-        super().__init__(display)
-
-    def scoreBall(self):
-        super().go()
-
-        global left_score, right_score, up_score, down_score
-        
-        if self.center_x <= self.radius:
-            left_score += 1
-        if self.center_x >= width -self.radius:
-            right_score += 1
-        
-        if self.center_y <= self.radius:
-            up_score += 1
-        if self.center_y >= height -self.radius:
-            down_score += 1
-
-        font = pygame.font.Font(None, 56)
-        text_left = font.render(str(left_score), 2, pygame.Color('black'), pygame.Color('white'))
-        display.blit(text_left, (0, 180))
-
-        font = pygame.font.Font(None, 56)
-        text_right = font.render(str(right_score), 2, pygame.Color('black'), pygame.Color('white'))
-        display.blit(text_right, (660, 180))
-
-        font = pygame.font.Font(None, 56)
-        text_up = font.render(str(up_score), 2, pygame.Color('black'), pygame.Color('white'))
-        display.blit(text_up, (330, 0))
-
-        font = pygame.font.Font(None, 56)
-        text_down = font.render(str(down_score), 2, pygame.Color('black'), pygame.Color('white'))
-        display.blit(text_down, (330, 360))
-
-width = 700
-height = 400
-display = pygame.display.set_mode((width, height))
-display.fill(pygame.Color('white'))
-
-score = Score(display)
-
 balls = []
-for i in range(5):
-    ball = RandomPointMovableBall(display)
+for i in range(5):    
+    ball = BillyardBall(display)
     ball.show()
-    balls.append(ball)
-
-    ball = BillyarBall(display)
-    ball.show()
-    balls.append(ball)
+    balls.append(ball)    
 
 pygame.display.flip()
-
-time.sleep(2)
-
 clock = pygame.time.Clock()
+
 while True:
     event_list = pygame.event.get()
     for event in event_list:
         if event.type == pygame.QUIT:
             pygame.quit()
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            for ball in balls:
-                ball.stop()
-    
+        
     for ball in balls:
         ball.move()
+        
+        ball.score(left_score, right_score, up_score, down_score)
 
-    score.scoreBall()
     pygame.display.flip()
     clock.tick(60)
