@@ -1,0 +1,6 @@
+from pyowm import OWM
+owm = OWM('fd0df77b4f682428f0034537420bc1e5')
+mgr = owm.weather_manager()
+observation = mgr.weather_at_place('Moscow,RU')
+w = observation.weather
+print(w.temperature('celsius'))
