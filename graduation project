@@ -23,10 +23,9 @@ class Check:
                 return False
 
     def check_alpha(string):
-        string = str(string)
+        string = str(string).strip()                    # добавил тримминг пробелов
         replace_string = string.replace(' ','-')
-        split_string = replace_string.split('-')
-
+        split_string = replace_string.split('-')        
         for element in range(len(split_string)):
             if not split_string[element].isalpha():
                 print('Данный пункт должен состоять из букв, введите корректные данные')
@@ -63,6 +62,7 @@ class School_attribute_Storage:
         for attribute in range(len(school)):
             print(school[attribute].attribute, school[attribute].data)
 
+        #Можно лучше: Количество студентов хранить в поле класса, чтобы лишний раз не дергать файл.
         if not FileProvider.exist('students.json'):
             print('Количество учеников: 0')
         else:            
@@ -109,39 +109,74 @@ class Student:
             if not age.isdigit():
                 print('Данный пункт должен состоять из числа, введите корректные данные')
                 continue
-            age = int(age)
-            if age < 5 or age >= 100:
+
+            int_age = int(age)  # Добавил переменную
+            if int_age < 5 or int_age >= 100:
                 print('Возраст ученика не может быть меньше 5 и больше 99 лет, введите корректные данные')
                 continue
             else:
                 break
-        age = str(age)
 
-        while True:
+        while True:         # Поправил на случай содержания в классе букв по типу 5а, 6г и т.п. уменьшил диапозон классов до 12
             class_number = input('Введите номер класса в котором обучается ученик: ')
-            if not class_number.isdigit():
-                print('Данный пункт должен состоять из числа, введите корректные данные')
+
+            if not class_number.isalnum():
+                print('Не верный ввод, введите корректные данные')
                 continue
-            class_number = int(class_number)
-            if class_number < 1 or class_number > 20:
-                print('Номер класса не может быть менее 1 и более 20, введите корректные данные')
+
+            if len(class_number) > 3:
+                print('Данный пункт не может превышать трёх символов, введите корректные данные')
                 continue
+
+            if class_number[0].isalpha():
+                print('Номер класса не может начинаться с буквы, введите корректные данные')
+                continue
+
+            if int(class_number[0]) == 0:
+                print('Номер класса не может начинаться с 0, введите корректные данные')
+                continue
+            
+            if len(class_number) == 3:
+                if class_number[2].isdigit():
+                    print('Не верный ввод, введите корректные данные')
+                    continue
+            
+                if class_number[0:2].isdigit():
+                    if int(class_number[0:2]) > 12 or int(class_number[0:2]) < 1:
+                        print('Номер класса не может быть менее 1 и более 12, введите корректные данные')
+                        continue
+
+                if class_number[1].isalpha():
+                    print('Номер класса не может содержать более 1 буквы, введите корректные данные')
+                    continue
+                else:
+                    break
+
+            if len(class_number) == 2:
+                if class_number.isdigit():
+                    if int(class_number) > 12 or int(class_number) < 1:
+                        print('Номер класса не может быть менее 1 и более 12, введите корректные данные')
+                        continue
+                    else:
+                        break
+                else:
+                    break
             else:
                 break
-        class_number = str(class_number)
 
         new_student = Student(name, age, class_number)
 
         if not FileProvider.exist('students.json'):
             new_student = [new_student]
-            code_new_student = jsonpickle.encode(new_student)
-            FileProvider.update_file('students.json', code_new_student)
+            new_code_students = jsonpickle.encode(new_student)
+
         else:
             code_students = FileProvider.get('students.json')
             students = jsonpickle.decode(code_students)
             students.append(new_student)
             new_code_students = jsonpickle.encode(students)
-            FileProvider.update_file('students.json', new_code_students)
+
+        FileProvider.update_file('students.json', new_code_students)    # вывод в файл вынес за if
 
     def del_student():
         if not FileProvider.exist('students.json'):
@@ -179,10 +214,11 @@ class Student:
             students = jsonpickle.decode(code_students)
             if len(students) == 0:
                 print('В школе нет учеников!')
-            else:                
-                print(f'{"НОМЕР":30}{"ИМЯ":40}{"ВОЗРАСТ":30}{"НОМЕР КЛАССА":30}')
+            else:
+
+                print(f'{"НОМЕР":30}{"ИМЯ":40}{"ВОЗРАСТ":20}{"НОМЕР КЛАССА":20}')   
                 for student in students:
-                    print(f'{str(students.index(student)+1):22}{student.student_name:52}{student.age:33}{student.class_number:10}')
+                    print(f'{str(students.index(student)+1):30}{student.student_name:38}{student.age:^10}{student.class_number:^35}') # Подправил вывод с выравниванием по центру ^
 
 
 class Menu:
